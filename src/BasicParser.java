@@ -2,7 +2,7 @@
  * @author Cherry
  * @date 2022/1/6
  * @time 11:20
- * @brief
+ * @brief 数学表达式的语法分析 (递归方式 )
  */
 
 
@@ -16,7 +16,7 @@ public class BasicParser {
 
     public void statements() {
         /*
-         * statements -> expression ; | expression ; statements
+         * statements -> expression; | expression;statements
          */
 
         expression();
@@ -29,14 +29,14 @@ public class BasicParser {
             lexer.advance();
         } else {
             /*
-             * ?如果算术表达式不以分号结束，那就是语法错误
+             * 如果算术表达式不以分号结束，那就是语法错误
              */
             isLegalStatement = false;
-            System.out.println("line: " + lexer.yylineno + " Missing semicolon");
+            System.out.println("Line: " + lexer.yylineno + " Missing semicolon");
             return;
         }
 
-        if (lexer.match(Lexer.EOI) != true) {
+        if (!lexer.match(Lexer.EOI)) {
             /*
              * 分号后还有字符，继续解析
              */
@@ -66,7 +66,7 @@ public class BasicParser {
             expr_prime();
         } else if (lexer.match(Lexer.UNKNOWN_SYMBOL)) {
             isLegalStatement = false;
-            System.out.println("unknow symbol: " + lexer.yytext);
+            System.out.println("Unknow symbol: " + lexer.yytext);
             return;
         } else {
             /*
@@ -118,7 +118,7 @@ public class BasicParser {
                  * 有左括号但没有右括号，错误
                  */
                 isLegalStatement = false;
-                System.out.println("line: " + lexer.yylineno + " Missing )");
+                System.out.println("Line: " + lexer.yylineno + " Missing )");
                 return;
             }
         } else {
@@ -126,7 +126,7 @@ public class BasicParser {
              * 这里不是数字，解析出错
              */
             isLegalStatement = false;
-            System.out.println("illegal statements");
+            System.out.println("Illegal statements");
             return;
         }
     }

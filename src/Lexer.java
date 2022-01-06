@@ -11,97 +11,119 @@ public class Lexer {
     public static final int EOI = 0;                //end of input
     public static final int SEMI = 1;               //分号
     public static final int PLUS = 2;               //加号
-    public static final int TIMES = 3;              //乘号
-    public static final int LP = 4;                 //左括号
-    public static final int RP = 5;                 //右括号
-    public static final int NUM_OR_ID = 6;          //数字或字母
-    public static final int UNKNOWN_SYMBOL = 7;     //未知字符
+    public static final int MINUS = 3;              //减号
+    public static final int TIMES = 4;              //乘号
+    public static final int DIV = 5;                //除号
+    public static final int LP = 6;                 //左括号
+    public static final int RP = 7;                 //右括号
+    public static final int NUM_OR_ID = 8;          //数字或字母
+    public static final int UNKNOWN_SYMBOL = 9;     //未知字符
 
     private int lookAhead = -1;
 
     public String yytext = "";                      //拆分的每个符号
-    public int yyleng = 0;                          //
-    public int yylineno = 0;                        //
+    public int yyleng = 0;                          //拆分的每个符号的长度
+    public int yylineno = 0;                        //输入的表达式的行数
 
-    private String input_buffer = "";               //
-    private String current = "";                    //
+    private String input_buffer = "";               //所有表达式连接到一起
+    private String current = "";                    //当前表示的符号(如12，+，*等)
+    private int cnt = 1;                            //token计数
+    private boolean flag = true;                    //读入表达式标记
 
+    /**
+     * 判断是否是字符和数字
+     * @param c 字符
+     * @return boolean
+     */
     private boolean isAlnum(char c) {
-        if (Character.isAlphabetic(c) == true || Character.isDigit(c) == true) {
-            return true;
-        }
-
-        return false;
+        return Character.isAlphabetic(c) || Character.isDigit(c);
     }
 
+    /**
+     * 词法分析器
+     * @return 返回终结符类型
+     */
     private int lex() {
-        while (true) {
-            while (current.equals("")) {
-                Scanner s = new Scanner(System.in);
-                while (true) {
-                    String line = s.nextLine();
-                    if (line.equals("end")) {
-                        break;
-                    }
-                    input_buffer += line;
+        while (flag) {                              //current == ""
+            Scanner s = new Scanner(System.in);
+            while (true) {
+                String line = s.nextLine();
+                if (line.equals("end")) {
+                    flag = false;
+                    break;
                 }
-                s.close();                              //输入流用完要关闭
+                input_buffer += line;
+            }
+            s.close();                              //输入流用完要关闭
 
-                if (input_buffer.length() == 0) {
-                    current = "";
-                    return EOI;
-                }
-                current = input_buffer;
-                ++yylineno;
-                current = current.trim();
-            }//while (current == "")
-            if (current.isEmpty()) {
+            if (input_buffer.length() == 0) {
+                current = "";
                 return EOI;
             }
-            for (int i = 0; i < current.length(); i++) {
-                yyleng = 0;
-                yytext = current.substring(0, 1);
-                switch (current.charAt(i)) {
-                    case ';':
-                        current = current.substring(1);
-                        return SEMI;
-                    case '+':
-                        current = current.substring(1);
-                        return PLUS;
-                    case '*':
-                        current = current.substring(1);
-                        return TIMES;
-                    case '(':
-                        current = current.substring(1);
-                        return LP;
-                    case ')':
-                        current = current.substring(1);
-                        return RP;
+            current = input_buffer;
+            yylineno++;
+            current = current.trim();
+        }//while (flag)
 
-                    case '\n':
-                    case '\t':
-                    case ' ':
-                        current = current.substring(1);
-                        break;
-                    default:
-                        if (isAlnum(current.charAt(i)) == false) {
-                            return UNKNOWN_SYMBOL;
-                        } else {
-                            while (i < current.length() && isAlnum(current.charAt(i))) {
-                                i++;
-                                yyleng++;
-                            } // while (isAlnum(current.charAt(i)))
+        if (current.isEmpty()) {
+            return EOI;
+        }
 
-                            yytext = current.substring(0, yyleng);
-                            current = current.substring(yyleng);
-                            return NUM_OR_ID;
-                        }
+        for (int i = 0; i < current.length(); i++) {
+            yyleng = 0;
+            yytext = current.substring(0, 1);
+            switch (current.charAt(i)) {
+                case ';':
+                    current = current.substring(1);
+                    return SEMI;
+                case '+':
+                    current = current.substring(1);
+                    return PLUS;
+                case '-':
+                    current = current.substring(1);
+                    return MINUS;
+                case '*':
+                    current = current.substring(1);
+                    return TIMES;
+                case '/':
+                    current = current.substring(1);
+                    return DIV;
+                case '(':
+                    current = current.substring(1);
+                    return LP;
+                case ')':
+                    current = current.substring(1);
+                    return RP;
 
-                } //switch (current.charAt(i))
-            }//  for (int i = 0; i < current.length(); i++)
-        }//while (true)
+                case '\n':
+                case '\t':
+                case ' ':
+                    current = current.substring(1);
+                    break;
+                default:
+                    if (!isAlnum(current.charAt(i))) {
+                        return UNKNOWN_SYMBOL;
+                    } else {
+                        while (i < current.length() && isAlnum(current.charAt(i))) {
+                            i++;
+                            yyleng++;
+                        } // while (isAlnum(current.charAt(i)))
+
+                        yytext = current.substring(0, yyleng);
+                        current = current.substring(yyleng);
+                        return NUM_OR_ID;
+                    }
+
+            } //switch (current.charAt(i))
+        }//  for (int i = 0; i < current.length(); i++)
+        return 0;
     }//lex()
 
+    /**
+     * 判断是否是EOI
+     * @param token 传入的参数始终为EOI
+     * @return boolean
+     */
     public boolean match(int token) {
         if (lookAhead == -1) {
             lookAhead = lex();
@@ -109,13 +131,16 @@ public class Lexer {
         return token == lookAhead;
     }
 
+    /**
+     * 继续进行词法分析
+     */
     public void advance() {
         lookAhead = lex();
     }
 
     public void runLexer() {
         while (!match(EOI)) {
-            System.out.println("Token: " + token() + ", Symbol: " + yytext);
+            System.out.println("Token" + cnt++ + ": " + token() + ", Symbol: " + yytext);
             advance();
         }
     }
@@ -129,8 +154,14 @@ public class Lexer {
             case PLUS:
                 token = "PLUS";
                 break;
+            case MINUS:
+                token = "MINUS";
+                break;
             case TIMES:
                 token = "TIMES";
+                break;
+            case DIV:
+                token = "DIV";
                 break;
             case NUM_OR_ID:
                 token = "NUM_OR_ID";
