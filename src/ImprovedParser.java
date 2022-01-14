@@ -29,6 +29,7 @@ public class ImprovedParser {
             } else {        //如果 expression 后面不是分号，说明语法错误，缺少分号
                 isLegalStatement = false;
                 System.out.println("Line: " + lexer.yylineno + " Missing semicolon");
+                return;
             }
         }
         //expression();
