@@ -2,14 +2,16 @@
  * @author Cherry
  * @date 2022/1/6
  * @time 11:21
- * @brief
+ * @brief 语法解析及代码生成
  */
 
 
 public class Parser {
     private Lexer lexer;
 
+    //寄存器空间（栈），设置8个寄存器
     String[] names = {"t0", "t1", "t2", "t3", "t4", "t5", "t6", "t7"};
+    //堆栈指针，指向各个寄存器
     private int nameP = 0;
 
     private String newName() {
