@@ -34,8 +34,8 @@ public class Parser {
 
     private void freeNames(String s) {
         if (nameP > 0) {
-            names[nameP] = s;
             nameP--;
+            names[nameP] = s;
         } else {
             System.out.println("(Internal error) Name stack underflow: " + lexer.yylineno);
         }
