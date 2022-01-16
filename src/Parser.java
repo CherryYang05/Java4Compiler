@@ -43,6 +43,9 @@ public class Parser {
 
     public Parser(Lexer lexer) {
         this.lexer = lexer;
+        lexer.current = Lexer.input_buffer;
+        lexer.lookAhead = -1;
+        System.out.println("================== 代码生成 ==================");
     }
 
     public void statements() {
@@ -101,9 +104,11 @@ public class Parser {
             } else {
                 //括号不匹配
                 System.out.println("Mismatched parenthesis: " + lexer.yylineno);
+                System.exit(1);
             }
         } else {
             System.out.println("Number or identifier expected: " + lexer.yylineno);
+            System.exit(1);
         }
     }
 }

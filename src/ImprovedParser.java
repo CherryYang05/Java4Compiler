@@ -14,6 +14,9 @@ public class ImprovedParser {
 
     public ImprovedParser(Lexer lexer) {
         this.lexer = lexer;
+        lexer.current = Lexer.input_buffer;
+        lexer.lookAhead = -1;
+        System.out.println("================== ”Ô∑®∑÷Œˆ ==================");
     }
 
     public void statements() {
@@ -59,6 +62,7 @@ public class ImprovedParser {
         if (isLegalStatement) {
             System.out.println("The statement is legal");
         }
+        System.out.println();
     }
 
     private void expression() {

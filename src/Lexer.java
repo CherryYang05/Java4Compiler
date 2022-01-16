@@ -9,28 +9,33 @@
 import java.util.Scanner;
 
 public class Lexer {
-    public static final int EOI = 0;                //end of input
-    public static final int SEMI = 1;               //分号
-    public static final int PLUS = 2;               //加号
-    public static final int MINUS = 3;              //减号
-    public static final int TIMES = 4;              //乘号
-    public static final int DIV = 5;                //除号
-    public static final int LP = 6;                 //左括号
-    public static final int RP = 7;                 //右括号
-    public static final int NUM_OR_ID = 8;          //数字或字母
-    public static final int UNKNOWN_SYMBOL = 9;     //未知字符
-    public static final int BLANK = 10;             //空格
+    static final int EOI = 0;                //end of input
+    static final int SEMI = 1;               //分号
+    static final int PLUS = 2;               //加号
+    static final int MINUS = 3;              //减号
+    static final int TIMES = 4;              //乘号
+    static final int DIV = 5;                //除号
+    static final int LP = 6;                 //左括号
+    static final int RP = 7;                 //右括号
+    static final int NUM_OR_ID = 8;          //数字或字母
+    static final int UNKNOWN_SYMBOL = 9;     //未知字符
+    static final int BLANK = 10;             //空格
 
-    private int lookAhead = -1;
+    int lookAhead = -1;
 
-    public String yytext = "";                      //拆分的每个符号
-    public int yyleng = 0;                          //拆分的每个符号的长度
-    public int yylineno = 0;                        //输入的表达式的行数
+    String yytext = "";                      //拆分的每个符号(如12，+，*等)
+    private int yyleng = 0;                          //拆分的每个符号的长度
+    int yylineno = 0;                        //输入的表达式的行数
 
-    private String input_buffer = "";               //所有表达式连接到一起
-    private String current = "";                    //当前表示的符号(如12，+，*等)
-    private int cnt = 1;                            //token计数
+    static String input_buffer = "";        //所有表达式连接到一起
+    String current = "";                    //剩余的表达式
+    private int cnt = 1;                            //解析出的符号个数计数
     private boolean flag = true;                    //读入表达式标记
+
+    //public Lexer() {
+    //    this.current = input_buffer;
+    //    this.lookAhead = -1;
+    //}
 
     /**
      * 判断是否是字符和数字
@@ -59,7 +64,7 @@ public class Lexer {
                 }
                 input_buffer += line;
             }
-            s.close();                              //输入流用完要关闭
+            s.close();                              //输入流用完要关闭，若有多次输入则不能关闭
 
             if (input_buffer.length() == 0) {
                 current = "";
@@ -142,12 +147,14 @@ public class Lexer {
     }
 
     public void runLexer() {
+        System.out.println("================== 词法解析 ==================");
         while (!match(EOI)) {
             //if (!match(BLANK)) {
             System.out.println("Token " + cnt++ + ": " + token() + ", Symbol: " + yytext);
             //}
             advance();
         }
+        System.out.println();
     }
 
     private String token() {
