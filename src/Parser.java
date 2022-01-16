@@ -2,7 +2,8 @@
  * @author Cherry
  * @date 2022/1/6
  * @time 11:21
- * @brief 语法解析及代码生成
+ * @brief 代码生成
+ * 修复了对于输入空格产生的错误
  */
 
 
@@ -14,6 +15,11 @@ public class Parser {
     //堆栈指针，指向各个寄存器
     private int nameP = 0;
 
+    /**
+     * 分配新的寄存器
+     *
+     * @return 寄存器名
+     */
     private String newName() {
         if (nameP >= names.length) {
             System.out.println("Expression too complex: " + lexer.yylineno);
@@ -40,18 +46,20 @@ public class Parser {
     }
 
     public void statements() {
-        String tempvar = newName();
-        expression(tempvar);
+        String tempvar;
+        //expression(tempvar);
 
-        while (lexer.match(Lexer.EOI) != false) {
-            expression(tempvar);
-            freeNames(tempvar);
-
-            if (lexer.match(Lexer.SEMI)) {
-                lexer.advance();
-            } else {
-                System.out.println("Inserting missing semicolon: " + lexer.yylineno);
-            }
+        while (!lexer.match(Lexer.EOI)) {
+            //if (!lexer.match(Lexer.BLANK)) {
+                tempvar = newName();
+                expression(tempvar);
+                freeNames(tempvar);
+                if (lexer.match(Lexer.SEMI)) {
+                    lexer.advance();
+                } else {
+                    System.out.println("Inserting missing semicolon: " + lexer.yylineno);
+                }
+            //}
         }
     }
 
@@ -70,7 +78,6 @@ public class Parser {
 
     private void term(String tempVar) {
         String tempVar2;
-
         factor(tempVar);
         while (lexer.match(Lexer.TIMES)) {
             lexer.advance();
@@ -92,7 +99,8 @@ public class Parser {
             if (lexer.match(Lexer.RP)) {
                 lexer.advance();
             } else {
-                System.out.println("Missmatched parenthesis: " + lexer.yylineno);
+                //括号不匹配
+                System.out.println("Mismatched parenthesis: " + lexer.yylineno);
             }
         } else {
             System.out.println("Number or identifier expected: " + lexer.yylineno);
