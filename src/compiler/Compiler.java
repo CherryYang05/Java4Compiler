@@ -1,3 +1,5 @@
+package compiler;
+
 /**
  * @author Cherry
  * @date 2022/1/6
@@ -12,7 +14,7 @@ public class Compiler {
         lexer.runLexer();
 
         //语法分析
-        //BasicParser basic_parser = new BasicParser(lexer);
+        //compiler.BasicParser basic_parser = new compiler.BasicParser(lexer);
         //basic_parser.statements();
 
         //改进的语法分析

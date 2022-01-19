@@ -26,5 +26,15 @@ public class LexerTest {
         System.out.print(str);
     }
 
+    @Test
+    public void InputSystemTest() {
+        int[] a = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        System.arraycopy(a, 5, a, 0, 5);
+        for (int i : a) {
+            System.out.print(i + " ");
+        }
+        char[] c = new char[5];
+    }
+
 }
 

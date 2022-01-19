@@ -1,4 +1,4 @@
-/**
+package compiler; /**
  * @author Cherry
  * @date 2022/1/6
  * @time 11:14
@@ -32,7 +32,7 @@ public class Lexer {
     private int cnt = 1;                            //解析出的符号个数计数
     private boolean flag = true;                    //读入表达式标记
 
-    //public Lexer() {
+    //public compiler.Lexer() {
     //    this.current = input_buffer;
     //    this.lookAhead = -1;
     //}

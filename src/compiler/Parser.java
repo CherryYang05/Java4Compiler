@@ -1,3 +1,5 @@
+package compiler;
+
 /**
  * @author Cherry
  * @date 2022/1/6
@@ -53,7 +55,7 @@ public class Parser {
         //expression(tempvar);
 
         while (!lexer.match(Lexer.EOI)) {
-            //if (!lexer.match(Lexer.BLANK)) {
+            //if (!lexer.match(compiler.Lexer.BLANK)) {
                 tempvar = newName();
                 expression(tempvar);
                 freeNames(tempvar);
