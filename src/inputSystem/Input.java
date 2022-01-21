@@ -29,7 +29,7 @@ public class Input {
     public boolean EOF_read = false;                       //输入流中是否还有可读信息
 
     public FileHandler fileHandler = null;
-
+    public final byte EOF = 0;                              //输入流中没有可以读取的信息
     /**
      * 缓冲区中是否还有可读的字符
      * @return 若输入流中没有可读信息，并且下一个要读写的指针已经越过逻辑结束地址，
@@ -87,6 +87,29 @@ public class Input {
             Lineno++;
         }
         return Start_buf[Next++];
+    }
+
+    /**
+     * 预读取若干个字符
+     * @param n 预读取字符数量
+     * @return 返回预读取字符串尾指针
+     */
+    public byte ii_lookahead(int n) {
+        if (EOF_read && Next + n - 1 >= End_buf) {
+            return EOF;
+        }
+        if (Next + n - 1 < 0 || Next + n - 1 >= End_buf) {
+            return EOF;
+        } else {
+            return Start_buf[Next + n - 1];
+        }
+    }
+
+    /**
+     * 将缓冲区指针重新指向 0
+     */
+    public void ii_pushback() {
+        Next = 0;
     }
 
     /**
@@ -202,27 +225,27 @@ public class Input {
     /**
      * @return 返回词法分析器分析的当前字符串的长度
      */
-    private int ii_length() {
+    public int ii_length() {
         return eMark - sMark;
     }
 
     /**
      * @return 上一个被词法分析器分析的字符串长度
      */
-    private int ii_pLength() {
+    public int ii_pLength() {
         return pLength;
     }
     /**
      * @return 返回当前被词法分析器分析的字符串的行号
      */
-    private int ii_lineno() {
+    public int ii_lineno() {
         return Lineno;
     }
 
     /**
      * @return 上一个被词法分析器分析的字符串所在的行号
      */
-    private int ii_pLineno() {
+    public int ii_pLineno() {
         return pLineno;
     }
 
@@ -254,4 +277,5 @@ public class Input {
         pLength = eMark - sMark;
         return pMark;
     }
+
 }

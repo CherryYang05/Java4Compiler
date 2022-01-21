@@ -21,8 +21,9 @@ public class InputSystem {
         input.ii_newFile(null);
 
         input.ii_mark_start();
+
         printWord();
-        input.ii_mark_end();
+        System.out.println(input.ii_mark_end());
 
         input.ii_mark_prev();
 
