@@ -71,19 +71,19 @@ public class FiniteStateMachine {
                         default:
                             System.out.println("Unknown error!");
                     }
-                    //状态机归位
-                    yyPreState = FSM.STATUS_FAILURE;
-                    yyState = 0;
-                    yyNextState = FSM.STATUS_FAILURE;
-                    System.out.println();
-                    input.ii_advance();
+
                 } else {
                     //如果下一个状态不是换行符，则表示输入非法，进入错误状态流程
                     System.out.println("Input error!");
-                    input.ii_advance();
                     break;
                 }
-
+                //状态机归位
+                yyPreState = FSM.STATUS_FAILURE;
+                yyState = 0;
+                yyNextState = FSM.STATUS_FAILURE;
+                input.ii_advance();
+                input.ii_mark_start();
+                System.out.println();
 
             }
             if (endOfReads) {
