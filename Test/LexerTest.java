@@ -2,7 +2,9 @@ import org.junit.Test;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Stack;
 
 /**
  * @author Cherry
@@ -39,8 +41,22 @@ public class LexerTest {
 
     @Test
     public void Test3() {
-        byte c = '\n';
-        System.out.println(c);
+        HashSet<Integer> hashSet = new HashSet<>();
+        hashSet.add(1);
+        hashSet.add(5);
+        hashSet.add(7);
+        hashSet.add(3);
+        System.out.println(hashSet);
+        HashSet<String> sites = new HashSet<String>();
+        sites.add("Runoob");
+        sites.add("Google");
+        sites.add("Taobao");
+        sites.add("Zhihu...");
+        System.out.println(sites);
+        String str = new String("132");
+        str.indexOf(3, 1);
+        Stack stack = new Stack<>();;
+
     }
 }
 

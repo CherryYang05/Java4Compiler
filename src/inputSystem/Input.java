@@ -30,6 +30,8 @@ public class Input {
 
     public FileHandler fileHandler = null;
     public final byte EOF = 0;                              //输入流中没有可以读取的信息
+
+
     /**
      * 缓冲区中是否还有可读的字符
      * @return 若输入流中没有可读信息，并且下一个要读写的指针已经越过逻辑结束地址，
@@ -59,7 +61,15 @@ public class Input {
         fileHandler = getFileHandler(fileName);
         fileHandler.Open();
         EOF_read = false;
+        /*
+            说明一下为什么初始化的时候要将 Next 指针指向缓冲区末尾：
+            当指向缓冲区末尾时，第一次读取缓冲区数据时便会自动触发刷新缓冲区操作，
+            从输入流中读取数据。如果一开始 Next 指向缓冲区起始地址，则要手动将
+            输入流中的数据读入缓冲区，使得代码不够优雅。并且要重新写一个初始时
+            将输入流数据读入缓冲区的方法，而这本身功能和 flush 是一样的，增加了代码量
+         */
         Next = END;
+        pMark = END;
         sMark = END;
         eMark = END;
         End_buf = END;

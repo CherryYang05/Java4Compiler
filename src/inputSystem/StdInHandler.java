@@ -27,7 +27,7 @@ public class StdInHandler implements FileHandler {
             input_buffer.append(line);      //StringBuilder线程不安全，但性能高于StringBuffer
             input_buffer.append('\n');      //**每一行后面加上换行符
         }
-        sc.close();                         //一次输入完就关闭输入流
+        //sc.close();                         //一次输入完就关闭输入流
     }
 
     @Override
