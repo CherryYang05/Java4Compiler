@@ -44,16 +44,18 @@ public class RegularExpressionHandler {
             }
 
             //开始接收宏定义,先找到第一个'{'
-            String regularExpr = "";
-            char c = (char) input.ii_lookahead(1);
+            StringBuilder regularExpr = new StringBuilder();
+            char c = (char) input.ii_advance();
+
             while (c != ' ' && c != '\n') {
                 if (c == '{') {
                     String macroName = getMacroNameFromInput();
-                    regularExpr += macroHandler.expandMacro(macroName);
+                    regularExpr.append(expandMacro(macroName));
                 } else {
-                    regularExpr += c;
+                    regularExpr.append(c);
                 }
-                c = (char) input.ii_advance();
+                c = (char)input.ii_advance();
+                //c = (char)input.ii_lookahead(1);
             }
 
             //跳过正则表达式后面的空格
@@ -61,7 +63,7 @@ public class RegularExpressionHandler {
                 c = (char) input.ii_advance();
             }
             //input.ii_advance();
-            macroList.add(regularExpr);
+            macroList.add(regularExpr.toString());
             System.out.println(regularExpr);
         }
     }
@@ -69,12 +71,28 @@ public class RegularExpressionHandler {
 
     /**
      * 对宏间套进行展开，注意：在双引号 " " 之间的宏无需展开
-     *
      * @param macroName 宏名称
      * @return 展开后的字符串
      */
-    public String expandMacro(String macroName) {
-        return "0";
+    public String expandMacro(String macroName) throws Exception {
+        String macroContent = macroHandler.expandMacro(macroName);
+        String name = "";
+        while (macroContent.contains("{")) {
+            int beginBrace = macroContent.indexOf("{");
+            int endBrace = macroContent.indexOf("}");
+            if (endBrace == -1) {
+                //没有匹配的 '}'
+                ErrorHandler.parseErr(ErrorHandler.Error.E_BADMAC);
+            } else {
+                macroName = macroContent.substring(beginBrace + 1, endBrace);
+                String content = macroContent.substring(0, beginBrace);
+                content += expandMacro(macroName);
+                content += macroContent.substring(endBrace + 1);
+                macroContent = content;
+            }
+
+        }
+        return macroContent;
     }
 
     /**
@@ -84,7 +102,7 @@ public class RegularExpressionHandler {
      */
     public String getMacroNameFromInput() {
         String macroName = "";
-        input.ii_advance();
+        //input.ii_advance();
         char c = (char) input.ii_lookahead(1);
         while (c != '}') {
             macroName += c;
@@ -94,6 +112,14 @@ public class RegularExpressionHandler {
         //跳过 '}'
         input.ii_advance();
         return macroName;
+    }
+
+    /**
+     * 字符串是否包含引号 " "，引号内的字符串无需宏替换
+     * @return
+     */
+    private boolean isInQuoted() {
+        return true;
     }
 
     /**
