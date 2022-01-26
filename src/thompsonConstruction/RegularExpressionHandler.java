@@ -16,7 +16,7 @@ public class RegularExpressionHandler {
     private Input input = null;
     private MacroHandler macroHandler = null;
     private boolean isQuoted = false;
-    ArrayList<String> macroList = new ArrayList<>();
+    ArrayList<String> regularExpList = new ArrayList<>();
 
     public RegularExpressionHandler(Input input, MacroHandler macroHandler) throws Exception {
         this.input = input;
@@ -67,7 +67,7 @@ public class RegularExpressionHandler {
                 c = (char) input.ii_advance();
             }
             //input.ii_advance();
-            macroList.add(regularExpr.toString());
+            regularExpList.add(regularExpr.toString());
             //System.out.println(regularExpr);
         }
     }
@@ -131,8 +131,8 @@ public class RegularExpressionHandler {
      *
      * @return MacroListCount
      */
-    public int getMacroListCount() {
-        return macroList.size();
+    public int getRegularExpressionCount() {
+        return regularExpList.size();
     }
 
     /**
@@ -141,8 +141,8 @@ public class RegularExpressionHandler {
      * @param index 下标
      * @return MacroList 列表元素
      */
-    public String getMacroListContent(int index) {
-        return macroList.get(index);
+    public String getRegularExpression(int index) {
+        return regularExpList.get(index);
     }
 
 }

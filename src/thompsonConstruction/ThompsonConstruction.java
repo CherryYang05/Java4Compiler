@@ -39,8 +39,8 @@ public class ThompsonConstruction {
         regularExpressionHandler = new RegularExpressionHandler(input, macroHandler);
         regularExpressionHandler.processRegularExpressions();
 
-        for (int i = 0; i < regularExpressionHandler.getMacroListCount(); i++) {
-            System.out.println("Line " + (i + 1) + ": " + regularExpressionHandler.getMacroListContent(i));
+        for (int i = 0; i < regularExpressionHandler.getRegularExpressionCount(); i++) {
+            System.out.println("Line " + (i + 1) + ": " + regularExpressionHandler.getRegularExpression(i));
         }
     }
 
@@ -48,7 +48,27 @@ public class ThompsonConstruction {
      * 对解析后的正则表达式进行词法分析
      */
     public void runLexerExample() {
-
+        lexer = new Lexer(regularExpressionHandler);
+        int expressionCount = 0;
+        System.out.println("\n当前解析的正则表达式为: " +
+                regularExpressionHandler.getRegularExpression(lexer.getExpressionCount()));
+        lexer.advance();
+        while (!lexer.MatchToken(Lexer.Token.END_OF_INPUT)) {
+            //如果到了当前正则表达式的末尾，则获取下一行
+            if (lexer.MatchToken(Lexer.Token.EOS)) {
+                System.out.print("第 " + lexer.getExpressionCount() + " 个正则表达式已解析完");
+                if (lexer.getExpressionCount() == regularExpressionHandler.getRegularExpressionCount()) {
+                    System.out.println("，全部正则表达式已解析完");
+                } else {
+                    System.out.println("，将解析下一个正则表达式");
+                    System.out.println("\n当前解析的正则表达式为: " +
+                            regularExpressionHandler.getRegularExpression(lexer.getExpressionCount()));
+                }
+            } else {
+                printRegularExpressionResult();
+            }
+            lexer.advance();
+        }
     }
 
     /**
@@ -60,10 +80,80 @@ public class ThompsonConstruction {
         input.ii_pushback();
     }
 
+    private void printRegularExpressionResult() {
+        System.out.println("当前处理的字符为: " + (char)lexer.getCurChar());
+        if (lexer.MatchToken(Lexer.Token.L)) {
+            System.out.println("当前字符是普通字符常量\n");
+        } else {
+            printSpecialRegularExpressionResult();
+        }
+    }
+
+    private void printSpecialRegularExpressionResult() {
+        String s = "";
+        if (lexer.MatchToken(Lexer.Token.ANY)) {
+            s = "当前字符是点通配符";
+        }
+
+        if (lexer.MatchToken(Lexer.Token.AT_BOL)) {
+            s = "当前字符是开头匹配符";
+        }
+
+        if (lexer.MatchToken(Lexer.Token.AT_EOL)) {
+            s = "当前字符是末尾匹配符";
+        }
+
+        if (lexer.MatchToken(Lexer.Token.CCL_END)) {
+            s = "当前字符是字符集类结尾括号";
+        }
+
+        if (lexer.MatchToken(Lexer.Token.CCL_START)) {
+            s = "当前字符是字符集类的开始括号";
+        }
+
+        if (lexer.MatchToken(Lexer.Token.CLOSE_CURLY)) {
+            s = "当前字符是结尾大括号";
+        }
+
+        if (lexer.MatchToken(Lexer.Token.CLOSE_PAREN)) {
+            s = "当前字符是结尾圆括号";
+        }
+
+        if (lexer.MatchToken(Lexer.Token.DASH)) {
+            s = "当前字符是横杠";
+        }
+
+        if (lexer.MatchToken(Lexer.Token.OPEN_CURLY)) {
+            s = "当前字符是起始大括号";
+        }
+
+        if (lexer.MatchToken(Lexer.Token.OPEN_PAREN)) {
+            s = "当前字符是起始圆括号";
+        }
+
+        if (lexer.MatchToken(Lexer.Token.OPTIONAL)) {
+            s = "当前字符是单字符匹配符?";
+        }
+
+        if (lexer.MatchToken(Lexer.Token.OR)) {
+            s = "当前字符是或操作符";
+        }
+
+        if (lexer.MatchToken(Lexer.Token.PLUS_CLOSE)) {
+            s = "当前字符是正闭包操作符";
+        }
+
+        if (lexer.MatchToken(Lexer.Token.CLOSURE)) {
+            s = "当前字符是闭包操作符";
+        }
+
+        System.out.println(s + '\n');
+    }
 
     public static void main(String[] args) throws Exception {
         ThompsonConstruction thompsonConstruction = new ThompsonConstruction();
         thompsonConstruction.runMacroExample();
         thompsonConstruction.runMacroExpandExample();
+        thompsonConstruction.runLexerExample();
     }
 }
