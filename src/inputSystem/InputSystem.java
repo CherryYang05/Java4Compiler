@@ -1,5 +1,7 @@
 package inputSystem;
 
+import java.io.IOException;
+
 /**
  * @author Cherry
  * @date 2022/1/19
@@ -16,7 +18,7 @@ public class InputSystem {
      * @param type type=filename，表示从磁盘获取输入流
      *             type=null，表示从控制台获取输入流
      */
-    private void runExample(String type) {
+    private void runExample(String type) throws IOException {
         input.ii_newFile(null);
 
         input.ii_mark_start();
@@ -78,7 +80,7 @@ public class InputSystem {
         System.out.println("");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         InputSystem inputSystem = new InputSystem();
         inputSystem.runExample(null);
     }

@@ -1,5 +1,6 @@
 package inputSystem;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 /**
@@ -54,7 +55,7 @@ public class Input {
      * 该接口用于决定输入流是磁盘文件还是控制台，不进行操作，只进行指针和变量的初始化
      * @param fileName 磁盘读写则传入文件名，控制台读写则传入null
      */
-    public void ii_newFile(String fileName) {
+    public void ii_newFile(String fileName) throws IOException {
         if (fileHandler != null) {
             fileHandler.Close();
         }

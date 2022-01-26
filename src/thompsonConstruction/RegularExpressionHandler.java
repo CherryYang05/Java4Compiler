@@ -15,6 +15,7 @@ public class RegularExpressionHandler {
 
     private Input input = null;
     private MacroHandler macroHandler = null;
+    private boolean isQuoted = false;
     ArrayList<String> macroList = new ArrayList<>();
 
     public RegularExpressionHandler(Input input, MacroHandler macroHandler) throws Exception {
@@ -36,7 +37,7 @@ public class RegularExpressionHandler {
         // 这里的缓冲区实际上还存有上一次读取的没有覆盖完的数据，
         // 但是可以根据 EOF_read = true 判断此时已经读到文件末尾了
         while (input.ii_lookahead(1) != input.EOF) {
-            System.out.print("Line " + input.ii_lineno() + ": ");
+            //System.out.print("Line " + input.ii_lineno() + ": ");
 
             //跳过前面的换行和空格
             while (input.ii_lookahead(1) == ' ' || input.ii_lookahead(1) == '\n') {
@@ -48,7 +49,10 @@ public class RegularExpressionHandler {
             char c = (char) input.ii_advance();
 
             while (c != ' ' && c != '\n') {
-                if (c == '{') {
+                if (c == '"') {
+                    isQuoted = !isQuoted;
+                }
+                if (!isQuoted && c == '{') {
                     String macroName = getMacroNameFromInput();
                     regularExpr.append(expandMacro(macroName));
                 } else {
@@ -64,7 +68,7 @@ public class RegularExpressionHandler {
             }
             //input.ii_advance();
             macroList.add(regularExpr.toString());
-            System.out.println(regularExpr);
+            //System.out.println(regularExpr);
         }
     }
 

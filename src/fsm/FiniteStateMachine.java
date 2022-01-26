@@ -2,6 +2,8 @@ package fsm;
 
 import inputSystem.Input;
 
+import java.io.IOException;
+
 /**
  * @author Cherry
  * @date 2022/1/21
@@ -21,7 +23,7 @@ public class FiniteStateMachine {
     Input input = new Input();
 
 
-    FiniteStateMachine() {
+    FiniteStateMachine() throws IOException {
         input.ii_newFile(null);
         input.ii_advance();         //读取字符再放回去，这样使得缓冲区填满输入流中的数据
         input.ii_pushback();        //指针在 0 处，方便后面的 lookahead
@@ -100,7 +102,7 @@ public class FiniteStateMachine {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         FiniteStateMachine fms = new FiniteStateMachine();
         fms.yylex();
     }

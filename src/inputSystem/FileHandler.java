@@ -1,5 +1,7 @@
 package inputSystem;
 
+import java.io.IOException;
+
 /**
  * @author Cherry
  * @date 2022/1/19
@@ -10,7 +12,7 @@ package inputSystem;
  */
 
 public interface FileHandler {
-    void Open();
+    void Open() throws IOException;
 
     int Close();
 

@@ -83,7 +83,7 @@ public class MacroHandler {
     public void printMacro() {
         System.out.println("获取输入的宏定义如下：");
         for (Map.Entry<String, String> map : macroMap.entrySet()) {
-            System.out.println(map.getKey() + " " + map.getValue());
+            System.out.println(map.getKey() + "->" + map.getValue());
         }
     }
 }
