@@ -17,6 +17,8 @@ public class ThompsonConstruction {
     private MacroHandler macroHandler = null;
     private RegularExpressionHandler regularExpressionHandler = null;
     private Lexer lexer = null;
+    private NFAMachineConstructor nfaMachineConstructor = null;
+    private NFAPrinter nfaPrinter = new NFAPrinter();
 
     /**
      * 对正则表达式进行预处理，存入 list
@@ -81,7 +83,8 @@ public class ThompsonConstruction {
     }
 
     private void printRegularExpressionResult() {
-        System.out.println("当前处理的字符为: " + (char)lexer.getCurChar());
+        System.out.println("当前处理的字符为: " + lexer.getCurChar() +
+                '(' + (char)lexer.getCurChar() + ')');
         if (lexer.MatchToken(Lexer.Token.L)) {
             System.out.println("当前字符是普通字符常量\n");
         } else {
@@ -150,10 +153,25 @@ public class ThompsonConstruction {
         System.out.println(s + '\n');
     }
 
+
+    public void runNFAMachineConstructorExample() throws Exception {
+        lexer = new Lexer(regularExpressionHandler);
+        nfaMachineConstructor = new NFAMachineConstructor(lexer);
+        NFAPair pair = new NFAPair();
+
+        nfaMachineConstructor.constructNFAForCharacterSet(pair);
+        //nfaMachineConstructor.constructNFAForSingleCharacter(pair);
+        //nfaMachineConstructor.constructNFAForDot(pair);
+
+        nfaPrinter.printNFA(pair.startNode);
+    }
+
     public static void main(String[] args) throws Exception {
         ThompsonConstruction thompsonConstruction = new ThompsonConstruction();
         thompsonConstruction.runMacroExample();
         thompsonConstruction.runMacroExpandExample();
         thompsonConstruction.runLexerExample();
+
+        thompsonConstruction.runNFAMachineConstructorExample();
     }
 }

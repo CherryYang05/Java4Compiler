@@ -108,7 +108,7 @@ public class Lexer {
             curChar = curExpr.charAt(curPos);
             curPos++;
         }
-        curToken =(inQuoted) ? Token.L : tokenMap[curChar];
+        curToken = (inQuoted) ? Token.L : tokenMap[curChar];
         return curToken;
     }
 
