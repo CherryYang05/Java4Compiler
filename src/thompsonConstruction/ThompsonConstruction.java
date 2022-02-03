@@ -159,10 +159,12 @@ public class ThompsonConstruction {
         nfaMachineConstructor = new NFAMachineConstructor(lexer);
         NFAPair pair = new NFAPair();
 
-        nfaMachineConstructor.constructNFAForCharacterSet(pair);
+        //nfaMachineConstructor.constructNFAForCharacterSet(pair);
         //nfaMachineConstructor.constructNFAForSingleCharacter(pair);
         //nfaMachineConstructor.constructNFAForDot(pair);
 
+        //nfaMachineConstructor.constructStarClosure(pair);
+        nfaMachineConstructor.cat_expr(pair);
         nfaPrinter.printNFA(pair.startNode);
     }
 

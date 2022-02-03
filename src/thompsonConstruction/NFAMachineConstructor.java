@@ -179,5 +179,146 @@ public class NFAMachineConstructor {
         return start;
     }
 
+    /**
+     * 三种闭包操作的整合
+     * @param pairOut NFAPair
+     */
+    public void factor(NFAPair pairOut) throws Exception {
+        boolean handle = constructStarClosure(pairOut);
+        if (!handle) {
+            handle = constructPlusClosure(pairOut);
+        }
+        if (!handle) {
+            handle = constructOptionsClosure(pairOut);
+        }
+    }
+
+    /**
+     * term* 星号闭包操作
+     * @param pairOut NFAPair
+     * @return boolean
+     */
+    public boolean constructStarClosure(NFAPair pairOut) throws Exception {
+        //start, end 表示在简单 NFA 之外的新的首尾 NFA 结点，即通过 ε 连接的首尾 NFA 结点
+        NFA start, end;
+        term(pairOut);
+        if (!lexer.MatchToken(Lexer.Token.CLOSURE)) {
+            return false;
+        }
+        start = nfaManger.newNFA();
+        end = nfaManger.newNFA();
+        //进行指针连接，连成符合星号闭包的规则
+        start.next = pairOut.startNode;
+        start.next2 = end;
+        pairOut.endNode.next = pairOut.startNode;
+        pairOut.endNode.next2 = end;
+
+        pairOut.startNode = start;
+        pairOut.endNode = end;
+        lexer.advance();
+        return true;
+    }
+
+    /**
+     * term+ 正闭包操作
+     * @param pairOut NFAPair
+     * @return boolean
+     */
+    public boolean constructPlusClosure(NFAPair pairOut) throws Exception {
+        //start, end 表示在简单 NFA 之外的新的首尾 NFA 结点，即通过 ε 连接的首尾 NFA 结点
+        NFA start, end;
+        term(pairOut);
+        if (!lexer.MatchToken(Lexer.Token.PLUS_CLOSE)) {
+            return false;
+        }
+        start = nfaManger.newNFA();
+        end = nfaManger.newNFA();
+        //进行指针连接，连成符合星号闭包的规则
+        start.next = pairOut.startNode;
+        pairOut.endNode.next = pairOut.startNode;
+        pairOut.endNode.next2 = end;
+
+        pairOut.startNode = start;
+        pairOut.endNode = end;
+        lexer.advance();
+        return true;
+    }
+
+    /**
+     * term? 选择闭包操作
+     * @param pairOut NFAPair
+     * @return boolean
+     */
+    public boolean constructOptionsClosure(NFAPair pairOut) throws Exception {
+        //start, end 表示在简单 NFA 之外的新的首尾 NFA 结点，即通过 ε 连接的首尾 NFA 结点
+        NFA start, end;
+        term(pairOut);
+        if (!lexer.MatchToken(Lexer.Token.PLUS_CLOSE)) {
+            return false;
+        }
+        start = nfaManger.newNFA();
+        end = nfaManger.newNFA();
+        //进行指针连接，连成符合星号闭包的规则
+        start.next = pairOut.startNode;
+        pairOut.endNode.next = pairOut.startNode;
+        pairOut.endNode.next2 = end;
+
+        pairOut.startNode = start;
+        pairOut.endNode = end;
+        lexer.advance();
+        return true;
+    }
+
+    /**
+     * 正则表达式的 & (与) 操作
+     * @param pairOut
+     */
+    public void cat_expr(NFAPair pairOut) throws Exception {
+        /*
+         * cat_expr -> factor factor .....
+         * 由于多个factor 前后结合就是一个cat_expr所以
+         * cat_expr-> factor cat_expr
+         */
+        if (first_in_cat(lexer.getCurToken())) {
+            factor(pairOut);
+        }
+        while (first_in_cat(lexer.getCurToken())) {
+            NFAPair newPair = new NFAPair();
+            factor(newPair);
+            pairOut.endNode.next = newPair.startNode;
+            pairOut.endNode = newPair.endNode;
+        }
+    }
+
+    /**
+     * 判断表达式开头字符的合法性
+     * @param token token
+     * @return bool
+     * @throws Exception Exception
+     */
+    private boolean first_in_cat(Lexer.Token token) throws Exception {
+        switch (token) {
+            //正确的表达式不会以 ) $ 开头,如果遇到 EOS 表示正则表达式解析完毕，那么就不应该执行该函数
+            case CLOSE_PAREN:
+            case AT_EOL:
+            case EOS:
+                return false;
+            case CLOSURE:
+            case PLUS_CLOSE:
+            case OPTIONAL:
+                //*, +, ? 这几个符号应该放在表达式的末尾
+                ErrorHandler.parseErr(ErrorHandler.Error.E_CLOSE);
+                return false;
+            case CCL_END:
+                //表达式不应该以 ] 开头
+                ErrorHandler.parseErr(ErrorHandler.Error.E_BRACKET);
+                return false;
+            case AT_BOL:
+                // ^ 必须在表达式的最开始
+                ErrorHandler.parseErr(ErrorHandler.Error.E_BOL);
+                return false;
+        }
+        return true;
+    }
 
 }

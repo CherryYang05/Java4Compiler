@@ -25,8 +25,9 @@ public class NFAPrinter {
         if (start) {
             System.out.println(" (START STATE)");
             start = false;
+        }else {
+            System.out.println();
         }
-
         //递归打印结点
         printNFA(startNFA.next);
         printNFA(startNFA.next2);
@@ -41,9 +42,9 @@ public class NFAPrinter {
             System.out.print("-->" + node.next.getStateNum());
             //如果一个结点有两个出度，则顺序打印两个结点
             if (node.next2 != null) {
-                System.out.print(" & " + node.next2.getStateNum());
+                System.out.print("&" + node.next2.getStateNum());
             }
-            System.out.print(" Edge: ");
+            System.out.print(", Edge: ");
             switch (node.getEdge()) {
                 case NFA.CCL:
                     printCCL(node.inputSet);

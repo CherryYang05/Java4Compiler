@@ -1,5 +1,8 @@
 package thompsonConstruction;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.tools.Tool;
 
 /**
@@ -9,6 +12,8 @@ import javax.tools.Tool;
  * @brief 用于解析后的正则表达式的词法分析
  */
 
+@Getter
+@Setter
 public class Lexer {
     public enum Token {
         EOS,            //正则表达式末尾
@@ -27,7 +32,7 @@ public class Lexer {
         OPEN_PAREN,     // (
         OPTIONAL,       // ?
         OR,             // |
-        PLUS_CLOSE,
+        PLUS_CLOSE,     // +
         JMP
     }
 
@@ -246,17 +251,5 @@ public class Lexer {
 
     public boolean MatchToken(Token t) {
         return curToken == t;
-    }
-
-    public int getCurChar() {
-        return curChar;
-    }
-
-    public String getCurExpr() {
-        return curExpr;
-    }
-
-    public int getExpressionCount() {
-        return expressionCount;
     }
 }
