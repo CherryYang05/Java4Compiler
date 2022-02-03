@@ -38,7 +38,6 @@ public class NFAMachineConstructor {
         if (!handled) {
             constructNFAForCharacterSet(pairOut);
         }
-
     }
 
     /**
@@ -55,6 +54,7 @@ public class NFAMachineConstructor {
         NFA start = allocFirstAndEndNodeForNFA(pairOut);
         //设置边
         start.setEdge(lexer.getCurChar());
+        lexer.advance();
         return true;
     }
 
@@ -76,12 +76,12 @@ public class NFAMachineConstructor {
         start.addToSet((byte) '\n');
         start.addToSet((byte) '\r');
         start.setComplement();
+        lexer.advance();
         return true;
     }
 
     /**
      * 匹配字符集，可能有取反操作例如 [abcd] (取反的例如：[^0-9])
-     *
      * @return true
      */
     public boolean constructNFAForCharacterSet(NFAPair pairOut) throws Exception {
@@ -253,7 +253,7 @@ public class NFAMachineConstructor {
         //start, end 表示在简单 NFA 之外的新的首尾 NFA 结点，即通过 ε 连接的首尾 NFA 结点
         NFA start, end;
         term(pairOut);
-        if (!lexer.MatchToken(Lexer.Token.PLUS_CLOSE)) {
+        if (!lexer.MatchToken(Lexer.Token.OPTIONAL)) {
             return false;
         }
         start = nfaManger.newNFA();
