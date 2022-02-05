@@ -309,7 +309,7 @@ public class NFAMachineConstructor {
          *
          */
         cat_expr(pairOut);
-        if (lexer.MatchToken(Lexer.Token.OR)) {
+        while (lexer.MatchToken(Lexer.Token.OR)) {
             lexer.advance();
             NFAPair newPair = new NFAPair();
             cat_expr(newPair);
