@@ -26,19 +26,6 @@ public class NFAMachineConstructor {
         }
     }
 
-    /**
-     * 几种字符集匹配操作的集合
-     * @param pairOut pairOut
-     */
-    public void term(NFAPair pairOut) throws Exception {
-        boolean handled = constructNFAForSingleCharacter(pairOut);
-        if (!handled) {
-            handled = constructNFAForDot(pairOut);
-        }
-        if (!handled) {
-            constructNFAForCharacterSet(pairOut);
-        }
-    }
 
     /**
      * 单字符匹配
@@ -113,37 +100,22 @@ public class NFAMachineConstructor {
         return true;
     }
 
-    ///**
-    // * 匹配没有取反操作的字符集，如：[^0-9]
-    // *
-    // * @param pairOut pairOut
-    // * @return true
-    // */
-    //public boolean constructNfaForCharacterSet(NFAPair pairOut) throws Exception {
-    //    if (!lexer.MatchToken(Lexer.Token.CCL_START)) {
-    //        return false;
-    //    }
-    //    lexer.advance();
-    //    //取反标记^
-    //    boolean negative = false;
-    //    if (lexer.MatchToken(Lexer.Token.AT_BOL)) {
-    //        negative = true;
-    //    }
-    //    NFA start = allocFirstAndEndNodeForNFA(pairOut)
-    //    start.setEdge(NFA.CCL);
-    //
-    //    if (!lexer.MatchToken(Lexer.Token.CCL_END)) {
-    //        doDash(start.inputSet);
-    //    }
-    //    if (!lexer.MatchToken(Lexer.Token.CCL_END)) {
-    //        ErrorHandler.parseErr(ErrorHandler.Error.E_BADEXPR);
-    //    }
-    //    if (negative) {
-    //        start.setComplement();
-    //    }
-    //    lexer.advance();
-    //    return true;
-    //}
+    /**
+     * 几种字符集匹配操作的集合
+     * @param pairOut pairOut
+     */
+    public void term(NFAPair pairOut) throws Exception {
+        boolean handled = constructExprInParen(pairOut);
+        if (!handled) {
+            constructNFAForSingleCharacter(pairOut);
+        }
+        if (!handled) {
+            handled = constructNFAForDot(pairOut);
+        }
+        if (!handled) {
+            constructNFAForCharacterSet(pairOut);
+        }
+    }
 
     /**
      * 处理解析正则表达式 [] 中匹配的字符集(有 bug)
@@ -301,6 +273,7 @@ public class NFAMachineConstructor {
             //正确的表达式不会以 ) $ 开头,如果遇到 EOS 表示正则表达式解析完毕，那么就不应该执行该函数
             case CLOSE_PAREN:
             case AT_EOL:
+            case OR:
             case EOS:
                 return false;
             case CLOSURE:
@@ -321,4 +294,55 @@ public class NFAMachineConstructor {
         return true;
     }
 
+    /**
+     * 实现正则表达式的或 (|) 操作
+     * @param pairOut pairOut
+     */
+    public void expr(NFAPair pairOut) throws Exception {
+        /*
+         * expr 由一个或多个 cat_expr 之间进行 OR 形成
+         * 如果表达式只有一个 cat_expr 那么expr 就等价于cat_expr
+         * 如果表达式由多个 cat_expr 做或连接构成那么 expr-> cat_expr | cat_expr | ....
+         * 由此得到 expr 的语法描述为:
+         * expr -> expr OR cat_expr
+         *         | cat_expr
+         *
+         */
+        cat_expr(pairOut);
+        if (lexer.MatchToken(Lexer.Token.OR)) {
+            lexer.advance();
+            NFAPair newPair = new NFAPair();
+            cat_expr(newPair);
+
+            NFA startNode = nfaManger.newNFA();
+            startNode.next = pairOut.startNode;
+            startNode.next2 = newPair.startNode;
+            pairOut.startNode = startNode;
+
+            NFA endNode = nfaManger.newNFA();
+            pairOut.endNode.next = endNode;
+            newPair.endNode.next = endNode;
+            pairOut.endNode = endNode;
+        }
+    }
+
+    /**
+     * 处理遇到圆括号的问题，也顺便解决了输入正则表达式为宏定义的问题
+     * @param pairOut pairOut
+     * @return bool
+     * @throws Exception Exception
+     */
+    private boolean constructExprInParen(NFAPair pairOut) throws Exception {
+        if (lexer.MatchToken(Lexer.Token.OPEN_PAREN)) {
+            lexer.advance();
+            expr(pairOut);
+            if (lexer.MatchToken(Lexer.Token.CLOSE_PAREN)) {
+                lexer.advance();
+            } else {
+                ErrorHandler.parseErr(ErrorHandler.Error.E_PAREN);
+            }
+            return true;
+        }
+        return false;
+    }
 }

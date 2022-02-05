@@ -20,8 +20,8 @@ public class NFAPrinter {
         if (start) {
             System.out.println("\n---------- NFA ---------");
         }
-        startNFA.setVisited(true);
         printNFANode(startNFA);
+        startNFA.setVisited(true);
         if (start) {
             System.out.println(" (START STATE)");
             start = false;
@@ -36,7 +36,7 @@ public class NFAPrinter {
 
     private void printNFANode(NFA node) {
         if (node.next == null) {
-            System.out.println("END");
+            //System.out.println("END");
         } else {
             System.out.print("NFA state: " + node.getStateNum());
             System.out.print("-->" + node.next.getStateNum());

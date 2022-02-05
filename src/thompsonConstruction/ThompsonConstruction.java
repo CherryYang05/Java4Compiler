@@ -164,7 +164,8 @@ public class ThompsonConstruction {
         //nfaMachineConstructor.constructNFAForDot(pair);
 
         //nfaMachineConstructor.constructStarClosure(pair);
-        nfaMachineConstructor.cat_expr(pair);
+        //nfaMachineConstructor.cat_expr(pair);
+        nfaMachineConstructor.expr(pair);
         nfaPrinter.printNFA(pair.startNode);
     }
 
