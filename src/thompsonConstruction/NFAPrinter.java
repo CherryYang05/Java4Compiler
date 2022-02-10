@@ -25,7 +25,7 @@ public class NFAPrinter {
         if (start) {
             System.out.println(" (START STATE)");
             start = false;
-        }else {
+        } else {
             System.out.println();
         }
         //µ›πÈ¥Ú”°Ω·µ„
@@ -50,7 +50,7 @@ public class NFAPrinter {
                     printCCL(node.inputSet);
                     break;
                 case NFA.EPSILON:
-                    System.out.print("¶≈ ");
+                    System.out.print("¶≈");
                     break;
                 default:
                     System.out.print((char)node.getEdge());

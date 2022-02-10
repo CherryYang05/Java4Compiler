@@ -19,6 +19,9 @@ public class ThompsonConstruction {
     private Lexer lexer = null;
     private NFAMachineConstructor nfaMachineConstructor = null;
     private NFAPrinter nfaPrinter = new NFAPrinter();
+    NFAPair pair = null;
+    private NFAInterpreter nfaInterpreter;
+
 
     /**
      * 对正则表达式进行预处理，存入 list
@@ -82,9 +85,12 @@ public class ThompsonConstruction {
         input.ii_pushback();
     }
 
+    /**
+     *
+     */
     private void printRegularExpressionResult() {
         System.out.println("当前处理的字符为: " + lexer.getCurChar() +
-                '(' + (char)lexer.getCurChar() + ')');
+                " (" + (char)lexer.getCurChar() + ')');
         if (lexer.MatchToken(Lexer.Token.L)) {
             System.out.println("当前字符是普通字符常量\n");
         } else {
@@ -92,6 +98,9 @@ public class ThompsonConstruction {
         }
     }
 
+    /**
+     * 进行词法解析时解析每个单独的字符
+     */
     private void printSpecialRegularExpressionResult() {
         String s = "";
         if (lexer.MatchToken(Lexer.Token.ANY)) {
@@ -154,10 +163,14 @@ public class ThompsonConstruction {
     }
 
 
+    /**
+     * 将正则表达式转化成 NFA
+     * @throws Exception Exception
+     */
     public void runNFAMachineConstructorExample() throws Exception {
         lexer = new Lexer(regularExpressionHandler);
         nfaMachineConstructor = new NFAMachineConstructor(lexer);
-        NFAPair pair = new NFAPair();
+        pair = new NFAPair();
 
         //nfaMachineConstructor.constructNFAForCharacterSet(pair);
         //nfaMachineConstructor.constructNFAForSingleCharacter(pair);
@@ -169,12 +182,27 @@ public class ThompsonConstruction {
         nfaPrinter.printNFA(pair.startNode);
     }
 
+    /**
+     * 用 NFA 解析输入的字符串
+     */
+    private void runNFAInterpreterExample() throws IOException {
+        System.out.println("Input String:");
+        renewInputBuffer(null);
+        nfaInterpreter = new NFAInterpreter(pair, input);
+        nfaInterpreter.interpret();
+    }
+
     public static void main(String[] args) throws Exception {
         ThompsonConstruction thompsonConstruction = new ThompsonConstruction();
+        //读取宏定义
         thompsonConstruction.runMacroExample();
+        //解析宏定义并展开
         thompsonConstruction.runMacroExpandExample();
+        //根据输入的正则表达式进行词法分析
         thompsonConstruction.runLexerExample();
-
+        //将正则表达式转化成 NFA
         thompsonConstruction.runNFAMachineConstructorExample();
+        //根据 NFA 识别输入的字符串
+        thompsonConstruction.runNFAInterpreterExample();
     }
 }

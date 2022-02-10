@@ -156,6 +156,7 @@ public class NFAMachineConstructor {
      * @param pairOut NFAPair
      */
     public void factor(NFAPair pairOut) throws Exception {
+        term(pairOut);
         boolean handle = constructStarClosure(pairOut);
         if (!handle) {
             handle = constructPlusClosure(pairOut);
@@ -173,13 +174,13 @@ public class NFAMachineConstructor {
     public boolean constructStarClosure(NFAPair pairOut) throws Exception {
         //start, end 表示在简单 NFA 之外的新的首尾 NFA 结点，即通过 ε 连接的首尾 NFA 结点
         NFA start, end;
-        term(pairOut);
+        //term(pairOut);
         if (!lexer.MatchToken(Lexer.Token.CLOSURE)) {
             return false;
         }
         start = nfaManger.newNFA();
         end = nfaManger.newNFA();
-        //进行指针连接，连成符合星号闭包的规则
+        //进行指针连接，连成符合*闭包的规则
         start.next = pairOut.startNode;
         start.next2 = end;
         pairOut.endNode.next = pairOut.startNode;
@@ -199,13 +200,13 @@ public class NFAMachineConstructor {
     public boolean constructPlusClosure(NFAPair pairOut) throws Exception {
         //start, end 表示在简单 NFA 之外的新的首尾 NFA 结点，即通过 ε 连接的首尾 NFA 结点
         NFA start, end;
-        term(pairOut);
+        //term(pairOut);
         if (!lexer.MatchToken(Lexer.Token.PLUS_CLOSE)) {
             return false;
         }
         start = nfaManger.newNFA();
         end = nfaManger.newNFA();
-        //进行指针连接，连成符合星号闭包的规则
+        //进行指针连接，连成符合+闭包的规则
         start.next = pairOut.startNode;
         pairOut.endNode.next = pairOut.startNode;
         pairOut.endNode.next2 = end;
@@ -224,16 +225,16 @@ public class NFAMachineConstructor {
     public boolean constructOptionsClosure(NFAPair pairOut) throws Exception {
         //start, end 表示在简单 NFA 之外的新的首尾 NFA 结点，即通过 ε 连接的首尾 NFA 结点
         NFA start, end;
-        term(pairOut);
+        //term(pairOut);
         if (!lexer.MatchToken(Lexer.Token.OPTIONAL)) {
             return false;
         }
         start = nfaManger.newNFA();
         end = nfaManger.newNFA();
-        //进行指针连接，连成符合星号闭包的规则
+        //进行指针连接，连成符合?闭包的规则
         start.next = pairOut.startNode;
-        pairOut.endNode.next = pairOut.startNode;
-        pairOut.endNode.next2 = end;
+        start.next2 = end;
+        pairOut.endNode.next = end;
 
         pairOut.startNode = start;
         pairOut.endNode = end;
@@ -248,8 +249,8 @@ public class NFAMachineConstructor {
     public void cat_expr(NFAPair pairOut) throws Exception {
         /*
          * cat_expr -> factor factor .....
-         * 由于多个factor 前后结合就是一个cat_expr所以
-         * cat_expr-> factor cat_expr
+         * 由于多个 factor 前后结合就是一个 cat_expr 所以
+         * cat_expr->factor cat_expr
          */
         if (first_in_cat(lexer.getCurToken())) {
             factor(pairOut);
