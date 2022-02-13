@@ -19,9 +19,9 @@ public class ThompsonConstruction {
     private Lexer lexer = null;
     private NFAMachineConstructor nfaMachineConstructor = null;
     private NFAPrinter nfaPrinter = new NFAPrinter();
-    NFAPair pair = null;
+    private NFAPair pair = null;
     private NFAInterpreter nfaInterpreter;
-
+    private DFAConstructor dfaConstructor = null;
 
     /**
      * 对正则表达式进行预处理，存入 list
@@ -192,6 +192,13 @@ public class ThompsonConstruction {
         nfaInterpreter.interpret();
     }
 
+    private void runDFAConstructor() {
+        System.out.println("\n=============== DFA to NFA ===============");
+        dfaConstructor = new DFAConstructor(pair, nfaInterpreter);
+        dfaConstructor.convertNFAToDFA();
+        dfaConstructor.printDFA();
+    }
+
     public static void main(String[] args) throws Exception {
         ThompsonConstruction thompsonConstruction = new ThompsonConstruction();
         //读取宏定义
@@ -204,5 +211,7 @@ public class ThompsonConstruction {
         thompsonConstruction.runNFAMachineConstructorExample();
         //根据 NFA 识别输入的字符串
         thompsonConstruction.runNFAInterpreterExample();
+        //将 NFA 转化成 DFA
+        thompsonConstruction.runDFAConstructor();
     }
 }

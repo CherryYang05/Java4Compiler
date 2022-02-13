@@ -53,7 +53,7 @@ public class NFAInterpreter {
      * @param inputSet NFA 集合
      * @return 进行 ε 闭包操作后的集合
      */
-    private Set<NFA> e_closure(Set<NFA> inputSet) {
+    Set<NFA> e_closure(Set<NFA> inputSet) {
         /*
          * 计算input集合中nfa节点所对应的ε闭包，
          * 并将闭包的节点加入到input中
@@ -79,7 +79,7 @@ public class NFAInterpreter {
      * @param c 跳转字符
      * @return 进行 move 操作后的集合
      */
-    private Set<NFA> move(Set<NFA> input, byte c) {
+    Set<NFA> move(Set<NFA> input, byte c) {
         Iterator it = input.iterator();
         Set<NFA> outSet = new HashSet<>();
         while (it.hasNext()) {
@@ -88,8 +88,10 @@ public class NFAInterpreter {
                 outSet.add(nfaNode.next);
             }
         }
-        System.out.print("move({" + strFromNFASet(input) + "}, '" + (char)c + "') = ");
-        System.out.println("{" + strFromNFASet(outSet) + "}");
+        if (!outSet.isEmpty()) {
+            System.out.print("move({" + strFromNFASet(input) + "}, '" + (char)c + "') = ");
+            System.out.println("{" + strFromNFASet(outSet) + "}");
+        }
         return outSet;
     }
 
@@ -126,6 +128,9 @@ public class NFAInterpreter {
 
     /**
      * 判断当前集合中的状态是否包含接收状态
+     * 这里需要注意，用 Thompson 构造法通过正则表达式构造 NFA 时，
+     * 起始和终止结点之有一个，因此判断 NFA 集合结点中是否包含终止结点时，
+     * 可以判断该结点是否等于 pair.endNode, 或者判断该节点的两个指针是否都为空
      * @param input NFA set
      * @return bool
      */
