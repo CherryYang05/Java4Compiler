@@ -1,0 +1,707 @@
+获取输入的宏定义如下：
+A->[a-z]
+AD->{A}|{D}
+D->[0-9]
+
+解析后的正则表达式：
+Line 1: ([0-9])*\.([0-9])|([0-9])\.([0-9])*
+Line 2: ([a-z])*([0-9])|a?[abcd]*([a-z])+
+
+当前解析的正则表达式为: ([0-9])*\.([0-9])|([0-9])\.([0-9])*
+当前处理的字符为: ( (()
+当前字符是起始圆括号
+
+当前处理的字符为: [ ([)
+当前字符是字符集类的开始括号
+
+当前处理的字符为: 0 (0)
+当前字符是普通字符常量
+
+当前处理的字符为: - (-)
+当前字符是横杠
+
+当前处理的字符为: 9 (9)
+当前字符是普通字符常量
+
+当前处理的字符为: ] (])
+当前字符是字符集类结尾括号
+
+当前处理的字符为: ) ())
+当前字符是结尾圆括号
+
+当前处理的字符为: * (*)
+当前字符是闭包操作符
+
+当前处理的字符为: . (.)
+当前字符是普通字符常量
+
+当前处理的字符为: ( (()
+当前字符是起始圆括号
+
+当前处理的字符为: [ ([)
+当前字符是字符集类的开始括号
+
+当前处理的字符为: 0 (0)
+当前字符是普通字符常量
+
+当前处理的字符为: - (-)
+当前字符是横杠
+
+当前处理的字符为: 9 (9)
+当前字符是普通字符常量
+
+当前处理的字符为: ] (])
+当前字符是字符集类结尾括号
+
+当前处理的字符为: ) ())
+当前字符是结尾圆括号
+
+当前处理的字符为: | (|)
+当前字符是或操作符
+
+当前处理的字符为: ( (()
+当前字符是起始圆括号
+
+当前处理的字符为: [ ([)
+当前字符是字符集类的开始括号
+
+当前处理的字符为: 0 (0)
+当前字符是普通字符常量
+
+当前处理的字符为: - (-)
+当前字符是横杠
+
+当前处理的字符为: 9 (9)
+当前字符是普通字符常量
+
+当前处理的字符为: ] (])
+当前字符是字符集类结尾括号
+
+当前处理的字符为: ) ())
+当前字符是结尾圆括号
+
+当前处理的字符为: . (.)
+当前字符是普通字符常量
+
+当前处理的字符为: ( (()
+当前字符是起始圆括号
+
+当前处理的字符为: [ ([)
+当前字符是字符集类的开始括号
+
+当前处理的字符为: 0 (0)
+当前字符是普通字符常量
+
+当前处理的字符为: - (-)
+当前字符是横杠
+
+当前处理的字符为: 9 (9)
+当前字符是普通字符常量
+
+当前处理的字符为: ] (])
+当前字符是字符集类结尾括号
+
+当前处理的字符为: ) ())
+当前字符是结尾圆括号
+
+当前处理的字符为: * (*)
+当前字符是闭包操作符
+
+第 1 个正则表达式已解析完，将解析下一个正则表达式
+
+当前解析的正则表达式为: ([a-z])*([0-9])|a?[abcd]*([a-z])+
+当前处理的字符为: ( (()
+当前字符是起始圆括号
+
+当前处理的字符为: [ ([)
+当前字符是字符集类的开始括号
+
+当前处理的字符为: a (a)
+当前字符是普通字符常量
+
+当前处理的字符为: - (-)
+当前字符是横杠
+
+当前处理的字符为: z (z)
+当前字符是普通字符常量
+
+当前处理的字符为: ] (])
+当前字符是字符集类结尾括号
+
+当前处理的字符为: ) ())
+当前字符是结尾圆括号
+
+当前处理的字符为: * (*)
+当前字符是闭包操作符
+
+当前处理的字符为: ( (()
+当前字符是起始圆括号
+
+当前处理的字符为: [ ([)
+当前字符是字符集类的开始括号
+
+当前处理的字符为: 0 (0)
+当前字符是普通字符常量
+
+当前处理的字符为: - (-)
+当前字符是横杠
+
+当前处理的字符为: 9 (9)
+当前字符是普通字符常量
+
+当前处理的字符为: ] (])
+当前字符是字符集类结尾括号
+
+当前处理的字符为: ) ())
+当前字符是结尾圆括号
+
+当前处理的字符为: | (|)
+当前字符是或操作符
+
+当前处理的字符为: a (a)
+当前字符是普通字符常量
+
+当前处理的字符为: ? (?)
+当前字符是单字符匹配符?
+
+当前处理的字符为: [ ([)
+当前字符是字符集类的开始括号
+
+当前处理的字符为: a (a)
+当前字符是普通字符常量
+
+当前处理的字符为: b (b)
+当前字符是普通字符常量
+
+当前处理的字符为: c (c)
+当前字符是普通字符常量
+
+当前处理的字符为: d (d)
+当前字符是普通字符常量
+
+当前处理的字符为: ] (])
+当前字符是字符集类结尾括号
+
+当前处理的字符为: * (*)
+当前字符是闭包操作符
+
+当前处理的字符为: ( (()
+当前字符是起始圆括号
+
+当前处理的字符为: [ ([)
+当前字符是字符集类的开始括号
+
+当前处理的字符为: a (a)
+当前字符是普通字符常量
+
+当前处理的字符为: - (-)
+当前字符是横杠
+
+当前处理的字符为: z (z)
+当前字符是普通字符常量
+
+当前处理的字符为: ] (])
+当前字符是字符集类结尾括号
+
+当前处理的字符为: ) ())
+当前字符是结尾圆括号
+
+当前处理的字符为: + (+)
+当前字符是正闭包操作符
+
+第 2 个正则表达式已解析完，全部正则表达式已解析完
+
+---------- NFA ---------
+NFA state: 17-->3&9, Edge: ε (START STATE)
+NFA state: 3-->1&4, Edge: ε
+NFA state: 1-->2, Edge: [0123456789]
+NFA state: 2-->1&4, Edge: ε
+NFA state: 4-->5, Edge: ε
+NFA state: 5-->6, Edge: .
+NFA state: 6-->7, Edge: ε
+NFA state: 7-->8, Edge: [0123456789]
+NFA state: 8-->18, Edge: ε
+
+NFA state: 9-->10, Edge: [0123456789]
+NFA state: 10-->11, Edge: ε
+NFA state: 11-->12, Edge: .
+NFA state: 12-->15, Edge: ε
+NFA state: 15-->13&16, Edge: ε
+NFA state: 13-->14, Edge: [0123456789]
+NFA state: 14-->13&16, Edge: ε
+NFA state: 16-->18, Edge: ε
+Input String:
+ε-Closure({17}) = {5, 17, 9, 1, 4, 3}
+move({5, 17, 9, 1, 4, 3}, '1') = {2, 10}
+ε-Closure({2, 10}) = {5, 2, 1, 11, 4, 10}
+move({5, 2, 1, 11, 4, 10}, '.') = {6, 12}
+ε-Closure({6, 12}) = {18, 6, 12, 7, 16, 15, 13}
+move({18, 6, 12, 7, 16, 15, 13}, '5') = {14, 8}
+ε-Closure({14, 8}) = {18, 14, 8, 16, 13}
+move({18, 14, 8, 16, 13}, '5') = {14}
+ε-Closure({14}) = {18, 14, 16, 13}
+move({18, 14, 16, 13}, '5') = {14}
+ε-Closure({14}) = {18, 14, 16, 13}
+The NFA Machine can recognize string: 1.555
+
+=============== DFA to NFA ===============
+ε-Closure({17}) = {5, 17, 9, 1, 4, 3}
+Create DFA start node!
+## Dfa state: 0. Its NFA states are: {5, 17, 9, 1, 4, 3}
+--------------- DFA NUM 0 ---------------
+move({5, 17, 9, 1, 4, 3}, '.') = {6}
+ε-Closure({6}) = {6, 7}
+Create a new DFA node!
+## Dfa state: 1. Its NFA states are: {6, 7}
+DFA from state 0 to state 1 on char: .
+
+move({5, 17, 9, 1, 4, 3}, '0') = {2, 10}
+ε-Closure({2, 10}) = {5, 2, 1, 11, 4, 10}
+Create a new DFA node!
+## Dfa state: 2. Its NFA states are: {5, 2, 1, 11, 4, 10}
+DFA from state 0 to state 2 on char: 0
+
+move({5, 17, 9, 1, 4, 3}, '1') = {2, 10}
+ε-Closure({2, 10}) = {5, 2, 1, 11, 4, 10}
+Get a existed DFA node...
+## Dfa state: 2. Its NFA states are: {5, 2, 1, 11, 4, 10}
+DFA from state 0 to state 2 on char: 1
+
+move({5, 17, 9, 1, 4, 3}, '2') = {2, 10}
+ε-Closure({2, 10}) = {5, 2, 1, 11, 4, 10}
+Get a existed DFA node...
+## Dfa state: 2. Its NFA states are: {5, 2, 1, 11, 4, 10}
+DFA from state 0 to state 2 on char: 2
+
+move({5, 17, 9, 1, 4, 3}, '3') = {2, 10}
+ε-Closure({2, 10}) = {5, 2, 1, 11, 4, 10}
+Get a existed DFA node...
+## Dfa state: 2. Its NFA states are: {5, 2, 1, 11, 4, 10}
+DFA from state 0 to state 2 on char: 3
+
+move({5, 17, 9, 1, 4, 3}, '4') = {2, 10}
+ε-Closure({2, 10}) = {5, 2, 1, 11, 4, 10}
+Get a existed DFA node...
+## Dfa state: 2. Its NFA states are: {5, 2, 1, 11, 4, 10}
+DFA from state 0 to state 2 on char: 4
+
+move({5, 17, 9, 1, 4, 3}, '5') = {2, 10}
+ε-Closure({2, 10}) = {5, 2, 1, 11, 4, 10}
+Get a existed DFA node...
+## Dfa state: 2. Its NFA states are: {5, 2, 1, 11, 4, 10}
+DFA from state 0 to state 2 on char: 5
+
+move({5, 17, 9, 1, 4, 3}, '6') = {2, 10}
+ε-Closure({2, 10}) = {5, 2, 1, 11, 4, 10}
+Get a existed DFA node...
+## Dfa state: 2. Its NFA states are: {5, 2, 1, 11, 4, 10}
+DFA from state 0 to state 2 on char: 6
+
+move({5, 17, 9, 1, 4, 3}, '7') = {2, 10}
+ε-Closure({2, 10}) = {5, 2, 1, 11, 4, 10}
+Get a existed DFA node...
+## Dfa state: 2. Its NFA states are: {5, 2, 1, 11, 4, 10}
+DFA from state 0 to state 2 on char: 7
+
+move({5, 17, 9, 1, 4, 3}, '8') = {2, 10}
+ε-Closure({2, 10}) = {5, 2, 1, 11, 4, 10}
+Get a existed DFA node...
+## Dfa state: 2. Its NFA states are: {5, 2, 1, 11, 4, 10}
+DFA from state 0 to state 2 on char: 8
+
+move({5, 17, 9, 1, 4, 3}, '9') = {2, 10}
+ε-Closure({2, 10}) = {5, 2, 1, 11, 4, 10}
+Get a existed DFA node...
+## Dfa state: 2. Its NFA states are: {5, 2, 1, 11, 4, 10}
+DFA from state 0 to state 2 on char: 9
+
+--------------- DFA NUM 1 ---------------
+move({6, 7}, '0') = {8}
+ε-Closure({8}) = {18, 8}
+Create a new DFA node!
+## Dfa state: 3. Its NFA states are: {18, 8}
+DFA from state 1 to state 3 on char: 0
+
+move({6, 7}, '1') = {8}
+ε-Closure({8}) = {18, 8}
+Get a existed DFA node...
+## Dfa state: 3. Its NFA states are: {18, 8}
+DFA from state 1 to state 3 on char: 1
+
+move({6, 7}, '2') = {8}
+ε-Closure({8}) = {18, 8}
+Get a existed DFA node...
+## Dfa state: 3. Its NFA states are: {18, 8}
+DFA from state 1 to state 3 on char: 2
+
+move({6, 7}, '3') = {8}
+ε-Closure({8}) = {18, 8}
+Get a existed DFA node...
+## Dfa state: 3. Its NFA states are: {18, 8}
+DFA from state 1 to state 3 on char: 3
+
+move({6, 7}, '4') = {8}
+ε-Closure({8}) = {18, 8}
+Get a existed DFA node...
+## Dfa state: 3. Its NFA states are: {18, 8}
+DFA from state 1 to state 3 on char: 4
+
+move({6, 7}, '5') = {8}
+ε-Closure({8}) = {18, 8}
+Get a existed DFA node...
+## Dfa state: 3. Its NFA states are: {18, 8}
+DFA from state 1 to state 3 on char: 5
+
+move({6, 7}, '6') = {8}
+ε-Closure({8}) = {18, 8}
+Get a existed DFA node...
+## Dfa state: 3. Its NFA states are: {18, 8}
+DFA from state 1 to state 3 on char: 6
+
+move({6, 7}, '7') = {8}
+ε-Closure({8}) = {18, 8}
+Get a existed DFA node...
+## Dfa state: 3. Its NFA states are: {18, 8}
+DFA from state 1 to state 3 on char: 7
+
+move({6, 7}, '8') = {8}
+ε-Closure({8}) = {18, 8}
+Get a existed DFA node...
+## Dfa state: 3. Its NFA states are: {18, 8}
+DFA from state 1 to state 3 on char: 8
+
+move({6, 7}, '9') = {8}
+ε-Closure({8}) = {18, 8}
+Get a existed DFA node...
+## Dfa state: 3. Its NFA states are: {18, 8}
+DFA from state 1 to state 3 on char: 9
+
+--------------- DFA NUM 2 ---------------
+move({5, 2, 1, 11, 4, 10}, '.') = {6, 12}
+ε-Closure({6, 12}) = {18, 6, 12, 7, 16, 15, 13}
+Create a new DFA node!
+## Dfa state: 4. Its NFA states are: {18, 6, 12, 7, 16, 15, 13}
+DFA from state 2 to state 4 on char: .
+
+move({5, 2, 1, 11, 4, 10}, '0') = {2}
+ε-Closure({2}) = {5, 2, 1, 4}
+Create a new DFA node!
+## Dfa state: 5. Its NFA states are: {5, 2, 1, 4}
+DFA from state 2 to state 5 on char: 0
+
+move({5, 2, 1, 11, 4, 10}, '1') = {2}
+ε-Closure({2}) = {5, 2, 1, 4}
+Get a existed DFA node...
+## Dfa state: 5. Its NFA states are: {5, 2, 1, 4}
+DFA from state 2 to state 5 on char: 1
+
+move({5, 2, 1, 11, 4, 10}, '2') = {2}
+ε-Closure({2}) = {5, 2, 1, 4}
+Get a existed DFA node...
+## Dfa state: 5. Its NFA states are: {5, 2, 1, 4}
+DFA from state 2 to state 5 on char: 2
+
+move({5, 2, 1, 11, 4, 10}, '3') = {2}
+ε-Closure({2}) = {5, 2, 1, 4}
+Get a existed DFA node...
+## Dfa state: 5. Its NFA states are: {5, 2, 1, 4}
+DFA from state 2 to state 5 on char: 3
+
+move({5, 2, 1, 11, 4, 10}, '4') = {2}
+ε-Closure({2}) = {5, 2, 1, 4}
+Get a existed DFA node...
+## Dfa state: 5. Its NFA states are: {5, 2, 1, 4}
+DFA from state 2 to state 5 on char: 4
+
+move({5, 2, 1, 11, 4, 10}, '5') = {2}
+ε-Closure({2}) = {5, 2, 1, 4}
+Get a existed DFA node...
+## Dfa state: 5. Its NFA states are: {5, 2, 1, 4}
+DFA from state 2 to state 5 on char: 5
+
+move({5, 2, 1, 11, 4, 10}, '6') = {2}
+ε-Closure({2}) = {5, 2, 1, 4}
+Get a existed DFA node...
+## Dfa state: 5. Its NFA states are: {5, 2, 1, 4}
+DFA from state 2 to state 5 on char: 6
+
+move({5, 2, 1, 11, 4, 10}, '7') = {2}
+ε-Closure({2}) = {5, 2, 1, 4}
+Get a existed DFA node...
+## Dfa state: 5. Its NFA states are: {5, 2, 1, 4}
+DFA from state 2 to state 5 on char: 7
+
+move({5, 2, 1, 11, 4, 10}, '8') = {2}
+ε-Closure({2}) = {5, 2, 1, 4}
+Get a existed DFA node...
+## Dfa state: 5. Its NFA states are: {5, 2, 1, 4}
+DFA from state 2 to state 5 on char: 8
+
+move({5, 2, 1, 11, 4, 10}, '9') = {2}
+ε-Closure({2}) = {5, 2, 1, 4}
+Get a existed DFA node...
+## Dfa state: 5. Its NFA states are: {5, 2, 1, 4}
+DFA from state 2 to state 5 on char: 9
+
+--------------- DFA NUM 3 ---------------
+--------------- DFA NUM 4 ---------------
+move({18, 6, 12, 7, 16, 15, 13}, '0') = {14, 8}
+ε-Closure({14, 8}) = {18, 14, 8, 16, 13}
+Create a new DFA node!
+## Dfa state: 6. Its NFA states are: {18, 14, 8, 16, 13}
+DFA from state 4 to state 6 on char: 0
+
+move({18, 6, 12, 7, 16, 15, 13}, '1') = {14, 8}
+ε-Closure({14, 8}) = {18, 14, 8, 16, 13}
+Get a existed DFA node...
+## Dfa state: 6. Its NFA states are: {18, 14, 8, 16, 13}
+DFA from state 4 to state 6 on char: 1
+
+move({18, 6, 12, 7, 16, 15, 13}, '2') = {14, 8}
+ε-Closure({14, 8}) = {18, 14, 8, 16, 13}
+Get a existed DFA node...
+## Dfa state: 6. Its NFA states are: {18, 14, 8, 16, 13}
+DFA from state 4 to state 6 on char: 2
+
+move({18, 6, 12, 7, 16, 15, 13}, '3') = {14, 8}
+ε-Closure({14, 8}) = {18, 14, 8, 16, 13}
+Get a existed DFA node...
+## Dfa state: 6. Its NFA states are: {18, 14, 8, 16, 13}
+DFA from state 4 to state 6 on char: 3
+
+move({18, 6, 12, 7, 16, 15, 13}, '4') = {14, 8}
+ε-Closure({14, 8}) = {18, 14, 8, 16, 13}
+Get a existed DFA node...
+## Dfa state: 6. Its NFA states are: {18, 14, 8, 16, 13}
+DFA from state 4 to state 6 on char: 4
+
+move({18, 6, 12, 7, 16, 15, 13}, '5') = {14, 8}
+ε-Closure({14, 8}) = {18, 14, 8, 16, 13}
+Get a existed DFA node...
+## Dfa state: 6. Its NFA states are: {18, 14, 8, 16, 13}
+DFA from state 4 to state 6 on char: 5
+
+move({18, 6, 12, 7, 16, 15, 13}, '6') = {14, 8}
+ε-Closure({14, 8}) = {18, 14, 8, 16, 13}
+Get a existed DFA node...
+## Dfa state: 6. Its NFA states are: {18, 14, 8, 16, 13}
+DFA from state 4 to state 6 on char: 6
+
+move({18, 6, 12, 7, 16, 15, 13}, '7') = {14, 8}
+ε-Closure({14, 8}) = {18, 14, 8, 16, 13}
+Get a existed DFA node...
+## Dfa state: 6. Its NFA states are: {18, 14, 8, 16, 13}
+DFA from state 4 to state 6 on char: 7
+
+move({18, 6, 12, 7, 16, 15, 13}, '8') = {14, 8}
+ε-Closure({14, 8}) = {18, 14, 8, 16, 13}
+Get a existed DFA node...
+## Dfa state: 6. Its NFA states are: {18, 14, 8, 16, 13}
+DFA from state 4 to state 6 on char: 8
+
+move({18, 6, 12, 7, 16, 15, 13}, '9') = {14, 8}
+ε-Closure({14, 8}) = {18, 14, 8, 16, 13}
+Get a existed DFA node...
+## Dfa state: 6. Its NFA states are: {18, 14, 8, 16, 13}
+DFA from state 4 to state 6 on char: 9
+
+--------------- DFA NUM 5 ---------------
+move({5, 2, 1, 4}, '.') = {6}
+ε-Closure({6}) = {6, 7}
+Get a existed DFA node...
+## Dfa state: 1. Its NFA states are: {6, 7}
+DFA from state 5 to state 1 on char: .
+
+move({5, 2, 1, 4}, '0') = {2}
+ε-Closure({2}) = {5, 2, 1, 4}
+Get a existed DFA node...
+## Dfa state: 5. Its NFA states are: {5, 2, 1, 4}
+DFA from state 5 to state 5 on char: 0
+
+move({5, 2, 1, 4}, '1') = {2}
+ε-Closure({2}) = {5, 2, 1, 4}
+Get a existed DFA node...
+## Dfa state: 5. Its NFA states are: {5, 2, 1, 4}
+DFA from state 5 to state 5 on char: 1
+
+move({5, 2, 1, 4}, '2') = {2}
+ε-Closure({2}) = {5, 2, 1, 4}
+Get a existed DFA node...
+## Dfa state: 5. Its NFA states are: {5, 2, 1, 4}
+DFA from state 5 to state 5 on char: 2
+
+move({5, 2, 1, 4}, '3') = {2}
+ε-Closure({2}) = {5, 2, 1, 4}
+Get a existed DFA node...
+## Dfa state: 5. Its NFA states are: {5, 2, 1, 4}
+DFA from state 5 to state 5 on char: 3
+
+move({5, 2, 1, 4}, '4') = {2}
+ε-Closure({2}) = {5, 2, 1, 4}
+Get a existed DFA node...
+## Dfa state: 5. Its NFA states are: {5, 2, 1, 4}
+DFA from state 5 to state 5 on char: 4
+
+move({5, 2, 1, 4}, '5') = {2}
+ε-Closure({2}) = {5, 2, 1, 4}
+Get a existed DFA node...
+## Dfa state: 5. Its NFA states are: {5, 2, 1, 4}
+DFA from state 5 to state 5 on char: 5
+
+move({5, 2, 1, 4}, '6') = {2}
+ε-Closure({2}) = {5, 2, 1, 4}
+Get a existed DFA node...
+## Dfa state: 5. Its NFA states are: {5, 2, 1, 4}
+DFA from state 5 to state 5 on char: 6
+
+move({5, 2, 1, 4}, '7') = {2}
+ε-Closure({2}) = {5, 2, 1, 4}
+Get a existed DFA node...
+## Dfa state: 5. Its NFA states are: {5, 2, 1, 4}
+DFA from state 5 to state 5 on char: 7
+
+move({5, 2, 1, 4}, '8') = {2}
+ε-Closure({2}) = {5, 2, 1, 4}
+Get a existed DFA node...
+## Dfa state: 5. Its NFA states are: {5, 2, 1, 4}
+DFA from state 5 to state 5 on char: 8
+
+move({5, 2, 1, 4}, '9') = {2}
+ε-Closure({2}) = {5, 2, 1, 4}
+Get a existed DFA node...
+## Dfa state: 5. Its NFA states are: {5, 2, 1, 4}
+DFA from state 5 to state 5 on char: 9
+
+--------------- DFA NUM 6 ---------------
+move({18, 14, 8, 16, 13}, '0') = {14}
+ε-Closure({14}) = {18, 14, 16, 13}
+Create a new DFA node!
+## Dfa state: 7. Its NFA states are: {18, 14, 16, 13}
+DFA from state 6 to state 7 on char: 0
+
+move({18, 14, 8, 16, 13}, '1') = {14}
+ε-Closure({14}) = {18, 14, 16, 13}
+Get a existed DFA node...
+## Dfa state: 7. Its NFA states are: {18, 14, 16, 13}
+DFA from state 6 to state 7 on char: 1
+
+move({18, 14, 8, 16, 13}, '2') = {14}
+ε-Closure({14}) = {18, 14, 16, 13}
+Get a existed DFA node...
+## Dfa state: 7. Its NFA states are: {18, 14, 16, 13}
+DFA from state 6 to state 7 on char: 2
+
+move({18, 14, 8, 16, 13}, '3') = {14}
+ε-Closure({14}) = {18, 14, 16, 13}
+Get a existed DFA node...
+## Dfa state: 7. Its NFA states are: {18, 14, 16, 13}
+DFA from state 6 to state 7 on char: 3
+
+move({18, 14, 8, 16, 13}, '4') = {14}
+ε-Closure({14}) = {18, 14, 16, 13}
+Get a existed DFA node...
+## Dfa state: 7. Its NFA states are: {18, 14, 16, 13}
+DFA from state 6 to state 7 on char: 4
+
+move({18, 14, 8, 16, 13}, '5') = {14}
+ε-Closure({14}) = {18, 14, 16, 13}
+Get a existed DFA node...
+## Dfa state: 7. Its NFA states are: {18, 14, 16, 13}
+DFA from state 6 to state 7 on char: 5
+
+move({18, 14, 8, 16, 13}, '6') = {14}
+ε-Closure({14}) = {18, 14, 16, 13}
+Get a existed DFA node...
+## Dfa state: 7. Its NFA states are: {18, 14, 16, 13}
+DFA from state 6 to state 7 on char: 6
+
+move({18, 14, 8, 16, 13}, '7') = {14}
+ε-Closure({14}) = {18, 14, 16, 13}
+Get a existed DFA node...
+## Dfa state: 7. Its NFA states are: {18, 14, 16, 13}
+DFA from state 6 to state 7 on char: 7
+
+move({18, 14, 8, 16, 13}, '8') = {14}
+ε-Closure({14}) = {18, 14, 16, 13}
+Get a existed DFA node...
+## Dfa state: 7. Its NFA states are: {18, 14, 16, 13}
+DFA from state 6 to state 7 on char: 8
+
+move({18, 14, 8, 16, 13}, '9') = {14}
+ε-Closure({14}) = {18, 14, 16, 13}
+Get a existed DFA node...
+## Dfa state: 7. Its NFA states are: {18, 14, 16, 13}
+DFA from state 6 to state 7 on char: 9
+
+--------------- DFA NUM 7 ---------------
+move({18, 14, 16, 13}, '0') = {14}
+ε-Closure({14}) = {18, 14, 16, 13}
+Get a existed DFA node...
+## Dfa state: 7. Its NFA states are: {18, 14, 16, 13}
+DFA from state 7 to state 7 on char: 0
+
+move({18, 14, 16, 13}, '1') = {14}
+ε-Closure({14}) = {18, 14, 16, 13}
+Get a existed DFA node...
+## Dfa state: 7. Its NFA states are: {18, 14, 16, 13}
+DFA from state 7 to state 7 on char: 1
+
+move({18, 14, 16, 13}, '2') = {14}
+ε-Closure({14}) = {18, 14, 16, 13}
+Get a existed DFA node...
+## Dfa state: 7. Its NFA states are: {18, 14, 16, 13}
+DFA from state 7 to state 7 on char: 2
+
+move({18, 14, 16, 13}, '3') = {14}
+ε-Closure({14}) = {18, 14, 16, 13}
+Get a existed DFA node...
+## Dfa state: 7. Its NFA states are: {18, 14, 16, 13}
+DFA from state 7 to state 7 on char: 3
+
+move({18, 14, 16, 13}, '4') = {14}
+ε-Closure({14}) = {18, 14, 16, 13}
+Get a existed DFA node...
+## Dfa state: 7. Its NFA states are: {18, 14, 16, 13}
+DFA from state 7 to state 7 on char: 4
+
+move({18, 14, 16, 13}, '5') = {14}
+ε-Closure({14}) = {18, 14, 16, 13}
+Get a existed DFA node...
+## Dfa state: 7. Its NFA states are: {18, 14, 16, 13}
+DFA from state 7 to state 7 on char: 5
+
+move({18, 14, 16, 13}, '6') = {14}
+ε-Closure({14}) = {18, 14, 16, 13}
+Get a existed DFA node...
+## Dfa state: 7. Its NFA states are: {18, 14, 16, 13}
+DFA from state 7 to state 7 on char: 6
+
+move({18, 14, 16, 13}, '7') = {14}
+ε-Closure({14}) = {18, 14, 16, 13}
+Get a existed DFA node...
+## Dfa state: 7. Its NFA states are: {18, 14, 16, 13}
+DFA from state 7 to state 7 on char: 7
+
+move({18, 14, 16, 13}, '8') = {14}
+ε-Closure({14}) = {18, 14, 16, 13}
+Get a existed DFA node...
+## Dfa state: 7. Its NFA states are: {18, 14, 16, 13}
+DFA from state 7 to state 7 on char: 8
+
+move({18, 14, 16, 13}, '9') = {14}
+ε-Closure({14}) = {18, 14, 16, 13}
+Get a existed DFA node...
+## Dfa state: 7. Its NFA states are: {18, 14, 16, 13}
+DFA from state 7 to state 7 on char: 9
+
+Show all DFA:
+From state 0 to state 1 on dot(.)
+From state 0 to state 2 on D(digit)
+From state 1 to state 3 on D(digit)
+From state 2 to state 4 on dot(.)
+From state 2 to state 5 on D(digit)
+From state 4 to state 6 on D(digit)
+From state 5 to state 1 on dot(.)
+From state 5 to state 5 on D(digit)
+From state 6 to state 7 on D(digit)
+From state 7 to state 7 on D(digit)

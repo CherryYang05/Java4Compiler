@@ -1,9 +1,6 @@
 package thompsonConstruction;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Cherry
@@ -25,7 +22,7 @@ public class DFAConstructor {
     private static final int STATE_FAILURE = -1;
 
     //用二维数组表示确定的有限状态机的状态
-    private int[][] dfaStateTransformTable = new int[MAX_DFA_STATE_COUNT][ASCII_COUNT + 1];
+    private int[][] dfaStateTransferTable = new int[MAX_DFA_STATE_COUNT][ASCII_COUNT + 1];
 
     /**
      * 构造器，
@@ -43,12 +40,15 @@ public class DFAConstructor {
     private void initTransformTable() {
         for (int i = 0; i < MAX_DFA_STATE_COUNT; i++)
             for (int j = 0; j <= ASCII_COUNT; j++) {
-                dfaStateTransformTable[i][j] = STATE_FAILURE;
+                dfaStateTransferTable[i][j] = STATE_FAILURE;
             }
     }
 
     /**
      * 将 NFA 结点集合转化成 DFA 结点
+     * 我们注意到：保存 NFA 结点之间的关系是用指针，而保存 DFA 之间的关系是用转移数组，这是为什么呢？
+     * 主要是因为 NFA 结点最多有两个出边，且出边要么是两个或一个 ε 边，要么只有一个有效字符边，很容易表示，
+     * 然而 DFA 每个结点的出边没有限制，可以有很多个，用指针表示的话会比较麻烦
      * @return 转换数组
      */
     public int[][] convertNFAToDFA() {
@@ -99,21 +99,21 @@ public class DFAConstructor {
                             nextState + " on char: " + c);
                     System.out.println();
                 }
-                dfaStateTransformTable[currentDFA.stateNum][c] = nextState;
+                dfaStateTransferTable[currentDFA.stateNum][c] = nextState;
             } // for end
             currentDFAIndex++;
 
         }   //while end
-        return dfaStateTransformTable;
+        return dfaStateTransferTable;
     }
 
     /**
      * 打印所有 DFA 结点
      */
     public void printDFA() {
-        System.out.println("Show all DFA:");
+        System.out.println("============= Show all DFA =============");
         int dfaNum = dfaList.size();
-        for (int i = 0; i < dfaNum; i++)
+        for (int i = 0; i < dfaNum; i++) {
             for (int j = 0; j < dfaNum; j++) {
                 if (isOnNumberClass(i, j)) {
                     System.out.println("From state " + i + " to state " + j + " on D(digit)");
@@ -122,6 +122,8 @@ public class DFAConstructor {
                     System.out.println("From state " + i + " to state " + j + " on dot(.)");
                 }
             }
+        }
+        System.out.println("=========== Show all DFA End ===========");
     }
 
     /**
@@ -163,7 +165,7 @@ public class DFAConstructor {
     private boolean isOnNumberClass(int from, int to) {
         char c = '0';
         for (c = '0'; c <= '9'; c++) {
-            if (dfaStateTransformTable[from][c] != to) {
+            if (dfaStateTransferTable[from][c] != to) {
                 return false;
             }
         }
@@ -177,10 +179,18 @@ public class DFAConstructor {
      * @return boolean
      */
     private boolean isOnDot(int from, int to) {
-        if (dfaStateTransformTable[from]['.'] != to) {
+        if (dfaStateTransferTable[from]['.'] != to) {
             return false;
         }
 
         return true;
+    }
+
+    public int[][] getDFAStateTransferTable() {
+        return dfaStateTransferTable;
+    }
+
+    public List<DFA> getDFAList() {
+        return dfaList;
     }
 }

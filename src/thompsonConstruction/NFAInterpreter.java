@@ -10,7 +10,7 @@ import java.util.Set;
  * @author Cherry
  * @date 2022/2/10
  * @time 12:23
- * @brief
+ * @brief 根据 NFA 解析读入的字符串是否符合正则表达式
  */
 
 public class NFAInterpreter {
@@ -45,6 +45,9 @@ public class NFAInterpreter {
         }
         if (isAccepted) {
             System.out.println("The NFA Machine can recognize string: " + inputString);
+        } else {
+            System.out.printf("The input string %s is illegal...\n", inputString);
+            System.exit(1);
         }
     }
 

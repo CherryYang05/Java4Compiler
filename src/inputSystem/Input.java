@@ -88,7 +88,7 @@ public class Input {
      */
     public byte ii_advance() {
         if (noMoreChars()) {
-            return 0;
+            return EOF;
         }
         //输入流写入缓冲区错误
         if (!EOF_read && ii_flush(false) < 0) {
@@ -151,16 +151,16 @@ public class Input {
         return got;
     }
 
-    public static int NO_MORE_CHARS_TO_READ = 0;
-    public static int FLUSH_OK = 1;
-    public static int FLUSH_FAIL = -1;
+    private static int NO_MORE_CHARS_TO_READ = 0;
+    private static int FLUSH_OK = 1;
+    private static int FLUSH_FAIL = -1;
 
     /**
      * 将缓冲区数据往前平移，并从输入流中重新读入新的数据
      * @param force 是否强制平移
      * @return FLUSH STATUS
      */
-    public int ii_flush(boolean force) {
+    private int ii_flush(boolean force) {
         /*
          * flush 缓冲区，如果 Next 没有越过 Danger 的话，那就什么都不做
          * 要不然像上一节所说的一样将数据进行平移，并从输入流中读入数据，写入平移后

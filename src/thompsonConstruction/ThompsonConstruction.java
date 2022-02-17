@@ -2,7 +2,9 @@ package thompsonConstruction;
 
 import inputSystem.Input;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 
 /**
  * @author Cherry
@@ -22,6 +24,7 @@ public class ThompsonConstruction {
     private NFAPair pair = null;
     private NFAInterpreter nfaInterpreter;
     private DFAConstructor dfaConstructor = null;
+    private MinimizeDFA minimizeDFA = null;
 
     /**
      * 对正则表达式进行预处理，存入 list
@@ -199,8 +202,26 @@ public class ThompsonConstruction {
         dfaConstructor.printDFA();
     }
 
+    private void runMinimizeDFA() {
+        System.out.println("\n=================== Minimize DFA ===================");
+        minimizeDFA = new MinimizeDFA(dfaConstructor, input);
+        minimizeDFA.minimize();
+        System.out.println("\n================= Minimize DFA End =================");
+    }
+
+    /**
+     * 用最小化的 DFA 解析输入的字符串
+     */
+    private void runMinimizedDFAInterpreter() {
+        minimizeDFA.MinimizedDFAInterpreter();
+    }
+
     public static void main(String[] args) throws Exception {
+        //将输出重定向至文件
+        //System.setOut(new PrintStream("src/out"));
+
         ThompsonConstruction thompsonConstruction = new ThompsonConstruction();
+
         //读取宏定义
         thompsonConstruction.runMacroExample();
         //解析宏定义并展开
@@ -213,5 +234,9 @@ public class ThompsonConstruction {
         thompsonConstruction.runNFAInterpreterExample();
         //将 NFA 转化成 DFA
         thompsonConstruction.runDFAConstructor();
+        //最小化 DFA
+        thompsonConstruction.runMinimizeDFA();
+        //根据最小化 DFA 识别输入的字符串
+        thompsonConstruction.runMinimizedDFAInterpreter();
     }
 }
